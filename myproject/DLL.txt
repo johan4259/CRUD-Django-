@@ -1,0 +1,34 @@
+-- Creación de la tabla Clients
+CREATE TABLE Clients (
+    id INT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- Creación de la tabla Products
+CREATE TABLE Products (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    attribute_4 VARCHAR(255) -- El nombre del cuarto atributo no se proporciona, estoy usando un marcador de posición.
+);
+
+-- Creación de la tabla Bills
+CREATE TABLE Bills (
+    id INT PRIMARY KEY,
+    client_id INT,
+    company_name VARCHAR(255) NOT NULL,
+    nt TEXT, -- Suponiendo que 'nt' es un campo de texto, ya que el tipo no se especifica.
+    code VARCHAR(255) NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES Clients(id)
+);
+
+-- Creación de la tabla Bills_Products (tabla de unión para la relación muchos a muchos)
+CREATE TABLE Bills_Products (
+    id INT PRIMARY KEY,
+    bill_id INT,
+    product_id INT,
+    FOREIGN KEY (bill_id) REFERENCES Bills(id),
+    FOREIGN KEY (product_id) REFERENCES Products(id)
+);
